@@ -34,6 +34,8 @@
     };
     ```
 
+  - yarn add @apollo/client graphql
+
 - vs-code extends
 
   - Tailwind CSS IntelliSense (Brad Cornes) 설치
