@@ -35,6 +35,7 @@
     ```
 
   - yarn add @apollo/client graphql
+  - yarn add react-router-dom
 
 - vs-code extends
 
