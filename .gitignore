@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# tailwind 자동생성 파일
+/src/styles/styles.css
