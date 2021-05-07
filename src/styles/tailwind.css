@@ -1,4 +1,13 @@
 /* ./your-css-folder/styles.css */
 @tailwind base;
 @tailwind components;
+
+.input {
+  @apply bg-gray-100 shadow-xl focus:ring-2 focus:ring-offset-blue-700 focus:ring-opacity-80 focus:outline-none py-3 px-5 rounded-lg;
+}
+
+.button {
+  @apply py-3 px-5 bg-gray-800 text-white text-lg rounded-lg focus:outline-none hover:opacity-90;
+}
+
 @tailwind utilities;
