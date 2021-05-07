@@ -160,3 +160,46 @@
 
 - <https://react-hook-form.com/get-started>
 - <https://react-hook-form.com/kr/get-started/>
+
+## Module Declare
+
+- 설치한 모듈이 @types 를 지원하지 않을 경우 아래와 같은 방법으로 해결할 수 있다.
+- 1번째 방법 > 아래 처럼 `declare module '모듈명'`을 입력해 타입 에러가 나지 않게 할 수 있다.
+
+  - react-app-env.d.ts
+
+  ```js
+  /// <reference types="react-scripts" />
+
+  declare module 'react-router-dom';
+  ```
+
+- 2번째 방법 > 특정 모듈에 대해 타입 정의가 없을 경우 아래 github 주소의 DefinitelyTyped 으로 가보면 많은 라이브러리에 대한 type 정의를 해놓은것이 있다.
+
+  - Definitely Types GitHub 주소
+    <https://github.com/DefinitelyTyped/DefinitelyTyped>
+
+  - 타입정의된 파일을 가져와서 프로젝트폴더의 "/types/모듈명/index.d.ts" 에 해당 모듈의 타입파일을 복사해 넣고,
+  - tsconfig.json 의 "typeRoot" 속성 값에 아래와 같이 해당 타입 경로를 설정해 준다.
+
+    ```json
+    {
+      "compilerOptions": {
+        ...
+        "typeRoots": ["node_modules/@types", "src/types"]
+      },
+    }
+    ```
+
+  - 커스텀 타입 정의 파일들이 있는 폴더에서 해당 모듈의 폴더를 생성한다.
+
+    - src/types/bcrypt/index.d.ts
+
+  - 타입정의 내용을 복붙하여 넣고 아래와 같이 `declare module "모듈명"`으로 감싸 준다.
+
+    ```js
+    declare module 'bcrypt' {
+      export declare function genSaltSync(rounds?: number, minor?: string): string;
+      ...
+    }
+    ```
