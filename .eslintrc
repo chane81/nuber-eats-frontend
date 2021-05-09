@@ -1,0 +1,108 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier", "react-hooks", "@typescript-eslint"],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": ["airbnb", "plugin:react/recommended", "plugin:prettier/recommended", "prettier"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "React": "readonly",
+    "JSX": "readonly",
+    "naver": "readonly"
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "no-console": ["warn", { "allow": ["info", "error", "warn"] }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/control-has-associated-label": "off",
+    "no-plusplus": "off",
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars-experimental": "warn",
+    "react/js-no-target-blank": "off",
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "no-use-before-define": ["off", { "variables": false }],
+    "jsx-quotes": ["error", "prefer-single"],
+    "import/no-unresolved": "off",
+    "react/prop-types": "off",
+    "camelcase": "off",
+    "consistent-return": "off",
+    "react/destructuring-assignment": "off",
+    "no-empty": "warn",
+    "import/order": "warn",
+    "array-callback-return": "warn",
+    "class-methods-use-this": "off",
+    "no-return-assign": "off",
+    "no-param-reassign": "off",
+    "no-useless-constructor": "warn",
+    "no-shadow": "off",
+    "new-cap": "off",
+    "no-empty-function": "warn",
+    "@typescript-eslint/no-non-null-assertion": "warn",
+    "import/no-mutable-exports": "warn",
+    "max-classes-per-file": "off",
+    "eqeqeq": "warn",
+    "prefer-const": "warn",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "no-await-in-loop": "off",
+    "no-nested-ternary": "off",
+    "no-restricted-syntax": "warn",
+    "guard-for-in": "warn",
+    "react/button-has-type": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "warn",
+    "jsx-a11y/anchor-is-valid": "warn",
+    "jsx-a11y/alt-text": "warn",
+    "react/display-name": "off",
+    "jsx-a11y/mouse-events-have-key-events": "off",
+    "react/static-property-placement": "warn",
+    "react/forbid-prop-types": "off",
+    "import/no-extraneous-dependencies": "warn"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      // 모듈 alias 사용을 위해 "eslint-import-resolver-typescript" 패키지를 설치후 아래와 같이 설정
+      "typescript": {
+        "project": "./tsconfig.json"
+      }
+    }
+  }
+}
