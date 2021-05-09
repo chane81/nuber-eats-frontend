@@ -37,6 +37,7 @@
   - yarn add @apollo/client graphql
   - yarn add react-router-dom
   - yarn add react-hook-form
+  - yarn global add apollo && yarn add apollo
 
 - vs-code extends
 
@@ -155,6 +156,34 @@
     );
   };
   ```
+
+- code gen
+  - code generate 를 하기위해 아래 모듈을 설치
+
+  ```bash
+    yarn add apollo
+  ```
+
+  - apollo.config.js 를 생성 후 세팅 내용 기재
+
+  ```javascript
+  module.exports = {
+    client: {
+      // tsx 가 확장자인 파일에서 query 를 검색
+      includes: ['./src/**/*.tsx'],
+      // tag 명
+      tagName: 'gql',
+      // graphql backend setting
+      service: {
+        name: 'nuber-eats-backend',
+        url: 'http://localhost:4000/graphql',
+      },
+    },
+  };
+  ```
+
+  - code gen 명령 실행
+    - apollo client:codegen mytypes.d.ts --target=typescript
 
 ## React-hook-form
 
