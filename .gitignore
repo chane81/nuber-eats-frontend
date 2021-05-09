@@ -24,3 +24,6 @@ yarn-error.log*
 
 # tailwind 자동생성 파일
 /src/styles/styles.css
+
+# code generwate file 제외
+__generated__
