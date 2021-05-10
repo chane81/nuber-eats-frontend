@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "tailwind:build": "tailwind build ./src/styles/tailwind.css -o ./src/styles/styles.css",
-    "start": "yarn tailwind:build & react-scripts start",
+    "start": "yarn generate & yarn tailwind:build & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generate": "apollo client:codegen src/__generated__ --target=typescript --outputFlat"
+    "generate": "rimraf src/__generated__ & apollo client:codegen src/__generated__ --target=typescript --outputFlat"
   },
   "dependencies": {
     "@apollo/client": "^3.3.16",
@@ -50,15 +50,7 @@
     "prettier": "^2.2.1"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }
