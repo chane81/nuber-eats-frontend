@@ -1,6 +1,6 @@
 import { useMutation, gql } from '@apollo/client';
 import { useForm } from 'react-hook-form';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Link, useHistory } from 'react-router-dom';
 import { FormError } from '../components/form-error';
 import { createAccountMutation, createAccountMutationVariables } from '../__generated__/createAccountMutation';
