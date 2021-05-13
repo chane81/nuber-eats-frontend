@@ -43,6 +43,10 @@
 
   - Tailwind CSS IntelliSense (Brad Cornes) 설치
 
+- eslint 메시지가 터미널에 나타나지 않게 package.json 스크립트 설정
+
+  - cross-env DISABLE_ESLINT_PLUGIN=true react-scripts start
+
 - config 파일 생성 및 setup
 
   - postcss.config.js 생성
