@@ -1,6 +1,6 @@
 import { useMutation, gql } from '@apollo/client';
 import { useForm } from 'react-hook-form';
-import React from 'react';
+import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { FormError } from '../components/form-error';
 import { loginMutation, loginMutationVariables } from '../__generated__/loginMutation';
@@ -28,7 +28,7 @@ const onCompleted = (data: loginMutation) => {
   } = data;
 
   if (ok) {
-    console.log('token', token);
+    console.info('token', token);
   }
 };
 
@@ -36,12 +36,12 @@ export const Login = () => {
   const { register, getValues, handleSubmit, formState } = useForm<ILoginForm>({
     mode: 'onChange',
   });
-  const [loginMutation, { loading, error, data: loginMutationResult }] = useMutation<
-    loginMutation,
-    loginMutationVariables
-  >(LOGIN_MUTATION, {
-    onCompleted,
-  });
+  const [loginMutation, { loading, data: loginMutationResult }] = useMutation<loginMutation, loginMutationVariables>(
+    LOGIN_MUTATION,
+    {
+      onCompleted,
+    },
+  );
 
   const { errors } = formState;
 
@@ -61,12 +61,15 @@ export const Login = () => {
   };
 
   const onInvalid = () => {
-    console.log('errors', errors);
-    console.log('cant create account');
+    console.info('errors', errors);
+    console.info('cant create account');
   };
 
   return (
     <div className='h-screen flex items-center flex-col mt-10 lg:mt-28'>
+      <Helmet>
+        <title>Login | Nuber Eats</title>
+      </Helmet>
       <div className='w-full max-w-screen-sm flex flex-col px-5 items-center'>
         <img src={nuberLogo} className='w-52 mb-10' alt='logo' />
         <h4 className='w-full font-medium text-left text-3xl mb-5'>Welcome back</h4>
