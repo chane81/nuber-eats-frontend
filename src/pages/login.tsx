@@ -1,12 +1,13 @@
 import { useMutation, gql } from '@apollo/client';
 import { useForm } from 'react-hook-form';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { FormError } from '../components/form-error';
 import { loginMutation, loginMutationVariables } from '../__generated__/loginMutation';
 import nuberLogo from '../images/logo.svg';
 import { Button } from '../components/button';
-import { isLoggedInVar } from '../apollo';
+import { authToken, isLoggedInVar } from '../apollo';
+import { LOCALSTORAGE_TOKEN } from '../constant';
 
 const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {
@@ -26,8 +27,10 @@ interface ILoginForm {
 const onCompleted = (data: loginMutation) => {
   const { ok, token } = data.login;
 
-  if (ok) {
+  if (ok && token) {
     console.info('token', token);
+    localStorage.setItem(LOCALSTORAGE_TOKEN, token);
+    authToken(token);
     isLoggedInVar(true);
   }
 };
@@ -94,6 +97,7 @@ export const Login = () => {
             type='password'
             placeholder='Password'
             className='input'
+            autoComplete='off'
           />
           {errors.password?.message && <FormError errorMessage={errors.password?.message} />}
           {errors.password?.type === 'minLength' && <FormError errorMessage='Password must be more than 10 chars.' />}
