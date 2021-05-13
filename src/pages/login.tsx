@@ -6,6 +6,7 @@ import { FormError } from '../components/form-error';
 import { loginMutation, loginMutationVariables } from '../__generated__/loginMutation';
 import nuberLogo from '../images/logo.svg';
 import { Button } from '../components/button';
+import { isLoggedInVar } from '../apollo';
 
 const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {
@@ -23,12 +24,11 @@ interface ILoginForm {
 }
 
 const onCompleted = (data: loginMutation) => {
-  const {
-    login: { ok, token },
-  } = data;
+  const { ok, token } = data.login;
 
   if (ok) {
     console.info('token', token);
+    isLoggedInVar(true);
   }
 };
 
@@ -77,6 +77,7 @@ export const Login = () => {
           <input
             {...register('email', {
               required: 'Email is required',
+              pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             })}
             name='email'
             type='email'
@@ -84,6 +85,7 @@ export const Login = () => {
             className='input'
           />
           {errors.email?.message && <FormError errorMessage={errors.email?.message} />}
+          {errors.email?.type === 'pattern' && <FormError errorMessage='Please enter a valid email' />}
           <input
             {...register('password', {
               required: 'Password is required',
