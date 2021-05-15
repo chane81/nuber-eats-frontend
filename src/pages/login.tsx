@@ -24,21 +24,22 @@ interface ILoginForm {
   password: string;
 }
 
-const onCompleted = (data: loginMutation) => {
-  const { ok, token } = data.login;
-
-  if (ok && token) {
-    console.info('token', token);
-    localStorage.setItem(LOCALSTORAGE_TOKEN, token);
-    authTokenVar(token);
-    isLoggedInVar(true);
-  }
-};
-
 export const Login = () => {
   const { register, getValues, handleSubmit, formState } = useForm<ILoginForm>({
     mode: 'onChange',
   });
+
+  const onCompleted = (data: loginMutation) => {
+    const { ok, token } = data.login;
+
+    if (ok && token) {
+      console.info('token', token);
+      localStorage.setItem(LOCALSTORAGE_TOKEN, token);
+      authTokenVar(token);
+      isLoggedInVar(true);
+    }
+  };
+
   const [loginMutation, { loading, data: loginMutationResult }] = useMutation<loginMutation, loginMutationVariables>(
     LOGIN_MUTATION,
     {

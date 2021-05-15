@@ -1,8 +1,17 @@
-import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
-import React from 'react';
-import { isLoggedInVar } from '../apollo';
+import { useQuery, gql } from '@apollo/client';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { authTokenVar, isLoggedInVar } from '../apollo';
 import { meQuery } from '../__generated__/meQuery';
+import { UserRole } from '../__generated__/globalTypes';
+import { Restaurants } from '../pages/client/restaurant';
+import { NotFound } from '../pages/404';
+import { LOCALSTORAGE_TOKEN } from '../constant';
+
+const ClientRoutes = () => [
+  <Route key='/' path='/' exact>
+    <Restaurants />
+  </Route>,
+];
 
 const ME_QUERY = gql`
   query meQuery {
@@ -16,8 +25,15 @@ const ME_QUERY = gql`
 `;
 
 export const LoggedInRouter = () => {
-  const { data, loading, error } = useQuery<meQuery>(ME_QUERY);
-  console.log('error', data);
+  const { data, loading, error } = useQuery<meQuery>(ME_QUERY, {
+    fetchPolicy: 'no-cache',
+  });
+
+  const handleClick = () => {
+    localStorage.setItem(LOCALSTORAGE_TOKEN, '');
+    authTokenVar('');
+    isLoggedInVar(false);
+  };
 
   if (!data || loading || error) {
     return (
@@ -29,7 +45,16 @@ export const LoggedInRouter = () => {
 
   return (
     <div>
-      <h1>{data.me.email}</h1>
+      <Router>
+        <Switch>
+          {data.me.role === UserRole.Client && ClientRoutes()}
+          <Redirect from='/potato' to='/' />
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </Router>
+      <button onClick={handleClick}>Log Out</button>
     </div>
   );
 };
