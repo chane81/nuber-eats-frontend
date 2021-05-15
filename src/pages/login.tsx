@@ -6,7 +6,7 @@ import { FormError } from '../components/form-error';
 import { loginMutation, loginMutationVariables } from '../__generated__/loginMutation';
 import nuberLogo from '../images/logo.svg';
 import { Button } from '../components/button';
-import { authToken, isLoggedInVar } from '../apollo';
+import { authTokenVar, isLoggedInVar } from '../apollo';
 import { LOCALSTORAGE_TOKEN } from '../constant';
 
 const LOGIN_MUTATION = gql`
@@ -30,7 +30,7 @@ const onCompleted = (data: loginMutation) => {
   if (ok && token) {
     console.info('token', token);
     localStorage.setItem(LOCALSTORAGE_TOKEN, token);
-    authToken(token);
+    authTokenVar(token);
     isLoggedInVar(true);
   }
 };
