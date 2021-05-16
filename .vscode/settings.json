@@ -42,6 +42,9 @@
   "editor.formatOnSave": false,
   "editor.minimap.enabled": false,
   "editor.tabCompletion": "on",
+  "editor.autoClosingBrackets": "never",
+  "editor.fontSize": 15,
+  "window.zoomLevel": 0.3,
 
   // files 설정
   "files.defaultLanguage": "ko",
