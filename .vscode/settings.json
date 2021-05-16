@@ -25,11 +25,37 @@
     // For Stylelint
     "source.fixAll.stylelint": true
   },
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "explorer.compactFolders": false,
   "editor.suggest.localityBonus": true,
   "editor.suggestSelection": "first",
-  "editor.quickSuggestions": {
-    "other": true,
-    "comments": false,
-    "strings": false
-  }
+  "editor.snippetSuggestions": "bottom",
+  // "editor.quickSuggestions": {
+  //   "other": true,
+  //   "comments": false,
+  //   "strings": false
+  // },
+  "editor.renderWhitespace": "all",
+  "editor.tabSize": 2,
+  "editor.renderIndentGuides": false,
+  "editor.formatOnSave": false,
+  "editor.minimap.enabled": false,
+  "editor.tabCompletion": "on",
+
+  // files 설정
+  "files.defaultLanguage": "ko",
+
+  // importCost 설정
+  "importCost.debug": true,
+  "importCost.timeout": 100000,
+  "importCost.smallPackageSize": 50,
+  "importCost.mediumPackageSize": 100,
+  "importCost.smallPackageColor": "#7cc36e",
+  "importCost.mediumPackageColor": "#7cc36e",
+  "importCost.largePackageColor": "#d44e40",
+  "importCost.typescriptExtensions": ["\\.tsx?$"],
+  "importCost.javascriptExtensions": ["\\.jsx?$"],
+  "importCost.bundleSizeDecoration": "both",
+  "importCost.showCalculatingDecoration": true
 }
