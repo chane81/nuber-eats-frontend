@@ -13,31 +13,42 @@
 
   - npx create-react-app ./ --template=typescript
 
-- module setup
+- module setup & install
 
-  - yarn add tailwindcss postcss autoprefixer
-  - npx tailwindcss init
+  - tailwind
+    - yarn add tailwindcss postcss autoprefixer
+    - npx tailwindcss init
+      - tailwind.config.js 자동 생성
+      - config 내용
 
-    - tailwind.config.js 자동 생성
+      ```js
+      module.exports = {
+        purge: [],
+        darkMode: false, // or 'media' or 'class'
+        theme: {
+          extend: {}
+        },
+        variants: {
+          extend: {}
+        },
+        plugins: []
+      };
+      ```
 
-    ```js
-    module.exports = {
-      purge: [],
-      darkMode: false, // or 'media' or 'class'
-      theme: {
-        extend: {}
-      },
-      variants: {
-        extend: {}
-      },
-      plugins: []
-    };
-    ```
+  - router
+    - yarn add react-router-dom
 
-  - yarn add @apollo/client graphql
-  - yarn add react-router-dom
-  - yarn add react-hook-form
-  - yarn global add apollo && yarn add apollo
+  - react-hook-form
+    - yarn add react-hook-form
+
+  - apollo/graphql
+    - yarn add @apollo/client graphql
+    - yarn global add apollo && yarn add apollo
+
+  - font awesome(react-fontawesome)
+    - yarn add @fortawesome/fontawesome-svg-core
+    - yarn add @fortawesome/free-solid-svg-icons
+    - yarn add @fortawesome/react-fontawesome
 
 - vs-code extends
 
