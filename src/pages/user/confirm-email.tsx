@@ -45,6 +45,7 @@ export const ConfirmEmail = () => {
       verifyEmail: { ok },
     } = data;
     if (ok && userData?.me) {
+      // write cache
       client.writeFragment({
         id: `User:${userData.me.id}`,
         fragment: gql`
