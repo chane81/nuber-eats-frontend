@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery, useQuery } from '@apollo/client';
 import { meQuery } from '../__generated__/meQuery';
 
 const ME_QUERY = gql`
@@ -12,8 +12,12 @@ const ME_QUERY = gql`
   }
 `;
 
+// query
 export const useMe = () => {
-  return useQuery<meQuery>(ME_QUERY, {
-    fetchPolicy: 'cache-and-network',
-  });
+  return useQuery<meQuery>(ME_QUERY);
+};
+
+// lazy query
+export const useMeLazy = () => {
+  return useLazyQuery<meQuery>(ME_QUERY);
 };
