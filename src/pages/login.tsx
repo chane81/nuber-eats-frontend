@@ -3,7 +3,10 @@ import { useForm } from 'react-hook-form';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { FormError } from '../components/form-error';
-import { loginMutation, loginMutationVariables } from '../__generated__/loginMutation';
+import {
+  loginMutation,
+  loginMutationVariables,
+} from '../__generated__/loginMutation';
 import nuberLogo from '../images/logo.svg';
 import { Button } from '../components/button';
 import { authTokenVar, isLoggedInVar } from '../apollo';
@@ -40,12 +43,12 @@ export const Login = () => {
     }
   };
 
-  const [loginMutation, { loading, data: loginMutationResult }] = useMutation<loginMutation, loginMutationVariables>(
-    LOGIN_MUTATION,
-    {
-      onCompleted,
-    },
-  );
+  const [loginMutation, { loading, data: loginMutationResult }] = useMutation<
+    loginMutation,
+    loginMutationVariables
+  >(LOGIN_MUTATION, {
+    onCompleted,
+  });
 
   const { errors } = formState;
 
@@ -76,8 +79,13 @@ export const Login = () => {
       </Helmet>
       <div className='w-full max-w-screen-sm flex flex-col px-5 items-center'>
         <img src={nuberLogo} className='w-52 mb-10' alt='logo' />
-        <h4 className='w-full font-medium text-left text-3xl mb-5'>Welcome back</h4>
-        <form onSubmit={handleSubmit(onSubmit, onInvalid)} className='grid gap-3 mt-5 w-full mb-3'>
+        <h4 className='w-full font-medium text-left text-3xl mb-5'>
+          Welcome back
+        </h4>
+        <form
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
+          className='grid gap-3 mt-5 w-full mb-3'
+        >
           <input
             {...register('email', {
               required: 'Email is required',
@@ -88,8 +96,12 @@ export const Login = () => {
             placeholder='Email'
             className='input'
           />
-          {errors.email?.message && <FormError errorMessage={errors.email?.message} />}
-          {errors.email?.type === 'pattern' && <FormError errorMessage='Please enter a valid email' />}
+          {errors.email?.message && (
+            <FormError errorMessage={errors.email?.message} />
+          )}
+          {errors.email?.type === 'pattern' && (
+            <FormError errorMessage='Please enter a valid email' />
+          )}
           <input
             {...register('password', {
               required: 'Password is required',
@@ -100,10 +112,20 @@ export const Login = () => {
             className='input'
             autoComplete='off'
           />
-          {errors.password?.message && <FormError errorMessage={errors.password?.message} />}
-          {errors.password?.type === 'minLength' && <FormError errorMessage='Password must be more than 10 chars.' />}
-          <Button canClick={formState.isValid} loading={loading} actionText='Login In' />
-          {loginMutationResult?.login.error && <FormError errorMessage={loginMutationResult.login.error} />}
+          {errors.password?.message && (
+            <FormError errorMessage={errors.password?.message} />
+          )}
+          {errors.password?.type === 'minLength' && (
+            <FormError errorMessage='Password must be more than 10 chars.' />
+          )}
+          <Button
+            canClick={formState.isValid}
+            loading={loading}
+            actionText='Login In'
+          />
+          {loginMutationResult?.login.error && (
+            <FormError errorMessage={loginMutationResult.login.error} />
+          )}
         </form>
         <div>
           New to Nuber?{' '}
