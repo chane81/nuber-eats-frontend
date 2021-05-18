@@ -10,7 +10,7 @@ import {
 import nuberLogo from '../images/logo.svg';
 import { Button } from '../components/button';
 import { authTokenVar, isLoggedInVar } from '../apollo';
-import { LOCALSTORAGE_TOKEN } from '../constant';
+import { LOCALSTORAGE_TOKEN, REGEX_EMAIL } from '../constant';
 
 const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {
@@ -89,7 +89,7 @@ export const Login = () => {
           <input
             {...register('email', {
               required: 'Email is required',
-              pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              pattern: REGEX_EMAIL,
             })}
             name='email'
             type='email'
