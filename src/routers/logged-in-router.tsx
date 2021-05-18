@@ -20,7 +20,7 @@ const ClientRoutes = () => [
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
 
-  const handleClick = () => {
+  const handleLogoutClick = () => {
     localStorage.setItem(LOCALSTORAGE_TOKEN, '');
     authTokenVar('');
     isLoggedInVar(false);
@@ -45,7 +45,7 @@ export const LoggedInRouter = () => {
           </Route>
         </Switch>
       </Router>
-      <button onClick={handleClick}>Log Out</button>
+      <button onClick={handleLogoutClick}>Log Out</button>
     </div>
   );
 };
