@@ -19,8 +19,7 @@
   "window.zoomLevel": 0.3,
 
   // eslint 설정
-  // eslint 설정
-	"[typescript]": {
+  "[typescript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
