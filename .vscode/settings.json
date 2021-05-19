@@ -1,9 +1,26 @@
 {
-  "tailwindCSS.includeLanguages": {
-    "plaintext": "html,css,javascript"
-  },
-  "tailwindCSS.emmetCompletions": true,
-  "[typescript]": {
+  // Editor 설정
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "explorer.compactFolders": false,
+  "editor.suggest.localityBonus": true,
+  "editor.suggestSelection": "first",
+  "editor.snippetSuggestions": "bottom",
+  // "editor.quickSuggestions": {
+  //   "other": true,
+  //   "comments": false,
+  //   "strings": false
+  // },
+  "editor.renderWhitespace": "all",
+  "editor.tabSize": 2,
+  "editor.renderIndentGuides": false,
+  "editor.minimap.enabled": false,
+  "editor.fontSize": 15,
+  "window.zoomLevel": 0.3,
+
+  // eslint 설정
+  // eslint 설정
+	"[typescript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -25,28 +42,20 @@
     // For Stylelint
     "source.fixAll.stylelint": true
   },
-  "editor.insertSpaces": true,
-  "editor.detectIndentation": false,
-  "explorer.compactFolders": false,
-  "editor.suggest.localityBonus": true,
-  "editor.suggestSelection": "first",
-  "editor.snippetSuggestions": "bottom",
-  // "editor.quickSuggestions": {
-  //   "other": true,
-  //   "comments": false,
-  //   "strings": false
-  // },
-  "editor.renderWhitespace": "all",
-  "editor.tabSize": 2,
-  "editor.renderIndentGuides": false,
-  "editor.formatOnSave": false,
-  "editor.minimap.enabled": false,
-  "editor.tabCompletion": "on",
-  "editor.autoClosingBrackets": "languageDefined",
-  "editor.fontSize": 15,
-  "window.zoomLevel": 0.3,
+
+  // folder exclude
+  "search.exclude": {
+    ".git": true,
+    ".tscache": true,
+    "bower_components": true,
+    "bin": true,
+    "build": true,
+    "lib": true,
+    "node_modules": true
+  },
 
   // files 설정
+  "files.autoSave": "onFocusChange",
   "files.defaultLanguage": "ko",
 
   // importCost 설정
