@@ -1,4 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
+import { Category } from '../../components/category';
+import { Restaurant } from '../../components/restaurant';
 import {
   restaurantsPageQuery,
   restaurantsPageQueryVariables,
@@ -50,11 +52,9 @@ export const Restaurants = () => {
     fetchPolicy: 'no-cache',
   });
 
-  console.log('data', data);
-
   return (
     <div>
-      <form className='bg-gray-800 w-full py-40 flex items-center justify-center w-'>
+      <form className='bg-gray-800 w-full py-32 flex items-center justify-center w-'>
         <input
           type='Search'
           className='input rounded-md border-0 w-3/12'
@@ -65,16 +65,22 @@ export const Restaurants = () => {
         <div className='max-w-screen-2xl mx-auto mt-8'>
           <div className='flex justify-around max-w-lg mx-auto'>
             {data?.allCategories.categories?.map((category) => (
-              <div
+              <Category
                 key={category.id}
-                className='flex flex-col items-center cursor-pointer'
-              >
-                <div
-                  className='w-14 h-14 bg-cover hover:bg-gray-200 rounded-full'
-                  style={{ backgroundImage: `url(${category.coverImg})` }}
-                />
-                <span className='mt-1 text-sm font-medium'>{category.name}</span>
-              </div>
+                coverImg={category.coverImg || ''}
+                name={category.name}
+              />
+            ))}
+          </div>
+          <div className='grid mt-16 grid-cols-3 gap-x-5 gap-y-10'>
+            {data?.restaurants.results?.map((restaurant) => (
+              <Restaurant
+                key={restaurant.id}
+                id={`${restaurant.id}`}
+                coverImg={restaurant.coverImg}
+                name={restaurant.name}
+                categoryName={restaurant.category?.name}
+              />
             ))}
           </div>
         </div>
