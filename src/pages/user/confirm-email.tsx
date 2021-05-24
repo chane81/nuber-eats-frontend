@@ -19,7 +19,7 @@ const VERIFY_EMAIL_MUTATION = gql`
 `;
 
 export const ConfirmEmail = () => {
-  const [isUnmounted, setIsUnmounted] = useState(false);
+  const [, setIsUnmounted] = useState(false);
   const { data: userData } = useMe();
   const client = useApolloClient();
   const history = useHistory();
