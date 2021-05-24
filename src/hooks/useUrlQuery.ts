@@ -6,11 +6,16 @@ import { useLocation } from 'react-router-dom';
  *  const query = useUrlQuery();
  *  const code = query('code');
  */
-export default () => {
-  const searchParams = new URLSearchParams(useLocation().search);
+const useUrlQuery = <T>() => {
+  const location = useLocation<T>();
+  const searchParams = new URLSearchParams(location.search);
 
   return {
+    location,
+    state: location.state,
     searchParams,
     get: (paramName: string) => searchParams.get(paramName) || '',
   };
 };
+
+export default useUrlQuery;
