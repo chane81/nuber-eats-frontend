@@ -8,6 +8,7 @@ import { Header } from '../components/header';
 import { useMe } from '../hooks/useMe';
 import { ConfirmEmail } from '../pages/user/confirm-email';
 import { EditProfile } from '../pages/user/edit-profile';
+import { Search } from '../pages/client/search';
 
 const ClientRoutes = () => [
   <Route key='/' path='/' exact>
@@ -18,6 +19,9 @@ const ClientRoutes = () => [
   </Route>,
   <Route key='/edit-profile' path='/edit-profile' exact>
     <EditProfile />
+  </Route>,
+  <Route key='/search' path='/search' exact>
+    <Search />
   </Route>,
 ];
 
