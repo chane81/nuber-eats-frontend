@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { authTokenVar, isLoggedInVar } from '../apollo';
 import { UserRole } from '../__generated__/globalTypes';
-import { Restaurants } from '../pages/client/restaurant';
+import { Restaurants } from '../pages/client/restaurants';
 import { NotFound } from '../pages/404';
 import { LOCALSTORAGE_TOKEN } from '../constant';
 import { Header } from '../components/header';
