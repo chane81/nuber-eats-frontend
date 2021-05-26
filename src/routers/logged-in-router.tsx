@@ -9,19 +9,23 @@ import { useMe } from '../hooks/useMe';
 import { ConfirmEmail } from '../pages/user/confirm-email';
 import { EditProfile } from '../pages/user/edit-profile';
 import { Search } from '../pages/client/search';
+import { Category } from '../pages/client/category';
 
 const ClientRoutes = () => [
-  <Route key='/' path='/' exact>
+  <Route key={1} path='/' exact>
     <Restaurants />
   </Route>,
-  <Route key='/confirm' path='/confirm' exact>
+  <Route key={2} path='/confirm'>
     <ConfirmEmail />
   </Route>,
-  <Route key='/edit-profile' path='/edit-profile' exact>
+  <Route key={3} path='/edit-profile'>
     <EditProfile />
   </Route>,
-  <Route key='/search' path='/search' exact>
+  <Route key={4} path='/search'>
     <Search />
+  </Route>,
+  <Route key={5} path='/category/:slug'>
+    <Category />
   </Route>,
 ];
 
