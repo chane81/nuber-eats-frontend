@@ -97,7 +97,7 @@ export const Restaurants = () => {
               </Link>
             ))}
           </div>
-          <div className='grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10'>
+          <div className='grid mt-16 md:grid-cols-3 px-3 gap-x-5 gap-y-10'>
             {data?.restaurants.results?.map((restaurant) => (
               <Restaurant
                 key={restaurant.id}
