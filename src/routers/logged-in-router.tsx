@@ -28,7 +28,7 @@ const ClientRoutes = () => [
   <Route key={5} path='/category/:slug'>
     <Category />
   </Route>,
-  <Route key={6} path='/restaurants/:id'>
+  <Route key={6} path='/restaurant/:id'>
     <Restaurant />
   </Route>,
 ];
