@@ -8,7 +8,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generate": "rimraf src/__generated__ & apollo client:codegen src/__generated__ --target=typescript --outputFlat"
+    "generate": "rimraf src/__generated__ & apollo client:codegen src/__generated__ --target=typescript --outputFlat",
+    "test:cov": "yarn test -- --coverage --watchAll=false"
   },
   "dependencies": {
     "@apollo/client": "^3.3.16",
@@ -62,6 +63,13 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "./src/components/**/*.tsx",
+      "./src/pages/**/*.tsx",
+      "./src/routers/**/*.tsx"
     ]
   }
 }
