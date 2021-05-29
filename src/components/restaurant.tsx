@@ -14,11 +14,11 @@ export const Restaurant: React.FC<IProps> = ({
   categoryName,
 }) => {
   return (
-    <Link to={`/restaurants/${id}`}>
+    <Link to={`/restaurant/${id}`}>
       <div className='flex flex-col'>
         <div
           style={{ backgroundImage: `url(${coverImg})` }}
-          className='py-28 bg-cover bg-center mb-3'
+          className='py-28 md:py-20 lg:py-28 bg-cover bg-center mb-3'
         />
         <h3 className='text-xl'>{name}</h3>
         <span className='border-t mt-1 py-2 text-xs opacity-50 border-gray-400'>
