@@ -6,6 +6,8 @@
 - React.js
 - Graphql
 - Tailwindcss
+- Jest
+- @testing-library/react
 
 ## 셋업 및 프로젝트 create
 
