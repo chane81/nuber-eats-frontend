@@ -6,10 +6,10 @@
     "tailwind:build": "tailwind build ./src/styles/tailwind.css -o ./src/styles/styles.css",
     "start": "yarn generate & yarn tailwind:build & cross-env DISABLE_ESLINT_PLUGIN=true react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test --verbose",
     "eject": "react-scripts eject",
     "generate": "rimraf src/__generated__ & apollo client:codegen src/__generated__ --target=typescript --outputFlat",
-    "test:cov": "yarn test --coverage"
+    "test:cov": "yarn test --coverage --watchAll=false"
   },
   "dependencies": {
     "@apollo/client": "^3.3.16",
