@@ -249,3 +249,51 @@
       ...
     }
     ```
+
+## Testing
+
+- Graphql Test 방법
+  - 첫번째 방법, MockProvider 를 쓰는 방법
+    - 참고 링크
+      <https://www.apollographql.com/docs/react/development-testing/testing/>
+      <https://www.apollographql.com/docs/react/api/react/testing/#mockedprovider>
+    - 사용 예시
+
+      ```javascript
+      it('renders ok', async () => {
+        await waitFor(async () => {
+          const { queryByText } = render(
+            <MockedProvider
+              mocks={[
+                {
+                  request: {
+                    query: ME_QUERY,
+                  },
+                  result: {
+                    data: {
+                      me: {
+                        id: 1,
+                        email: '',
+                        role: '',
+                        verified: true,
+                      },
+                    },
+                  },
+                },
+              ]}
+            >
+              <Router>
+                <Header />
+              </Router>
+            </MockedProvider>,
+          );
+
+          await new Promise((resolve) => setTimeout(resolve, 0));
+          expect(queryByText('Prease verify your email.')).toBeNull();
+        });
+      });
+      ```
+
+  - 두번째 방법, mock-apollo-client 를 쓰는 방법
+    - MockProvider 를 쓸 경우 쿼리가 몇번 호출하였는지, 어떤 argument 로 호출하였는지도 테스트 하고 싶은데 그렇게 할 수가 없다. mock-apollo-client 를 사용하면 좀 더 디테일 하게 테스트가 가능하다.
+    - 참고 링크: <https://github.com/mike-gibson/mock-apollo-client>
