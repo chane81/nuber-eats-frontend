@@ -3,7 +3,7 @@ import { Category } from '../category';
 
 describe('<Category />', () => {
   it('should render ok with props', () => {
-    const { getByText, container, debug } = render(
+    const { getByText, container } = render(
       <Category coverImg='img' name='catName' />,
     );
 
@@ -11,6 +11,5 @@ describe('<Category />', () => {
     expect(container.querySelector('.bg-cover')).toHaveStyle(
       'backgroundImage: url(img)',
     );
-    debug();
   });
 });
