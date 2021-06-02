@@ -55,6 +55,7 @@
 - vs-code extends
 
   - Tailwind CSS IntelliSense (Brad Cornes) 설치
+  - Apollo GraphQL 설치
 
 - eslint 메시지가 터미널에 나타나지 않게 package.json 스크립트 설정
 
@@ -201,6 +202,14 @@
 
   - code gen 명령 실행
     - apollo client:codegen mytypes.d.ts --target=typescript
+
+- vs-code 확장툴을 사용한 gqlphql 작성시 인텔리센스 도움받기
+  - vs-code extension tool 명
+    - Apollo GraphQL
+  - graphql 작성시 인텔리센스 도움을 받을 수 있다.
+  - 참고: <https://www.apollographql.com/docs/devtools/editor-plugins/>
+  - 확장툴이 제대로 동작되기 위해서는 apollo.config.js 의 설정파일이 필수
+  - 설정파일 작성이 끝났다면 vs-code 제일 하단에 "Apollo🚀" 을 클릭하여 제대로 스키마를 받아서 작동하는지 확인할 것
 
 ## React-hook-form
 
