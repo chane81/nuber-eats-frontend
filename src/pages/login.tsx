@@ -12,7 +12,7 @@ import { Button } from '../components/button';
 import { authTokenVar, isLoggedInVar } from '../apollo';
 import { LOCALSTORAGE_TOKEN, REGEX_EMAIL } from '../constant';
 
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {
     login(input: $loginInput) {
       ok
@@ -36,7 +36,6 @@ export const Login = () => {
     const { ok, token } = data.login;
 
     if (ok && token) {
-      console.info('token', token);
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
       isLoggedInVar(true);
@@ -68,8 +67,8 @@ export const Login = () => {
   };
 
   const onInvalid = () => {
-    console.info('errors', errors);
-    console.info('cant create account');
+    // console.info('errors', errors);
+    // console.info('cant create account');
   };
 
   return (
@@ -114,9 +113,6 @@ export const Login = () => {
           />
           {errors.password?.message && (
             <FormError errorMessage={errors.password?.message} />
-          )}
-          {errors.password?.type === 'minLength' && (
-            <FormError errorMessage='Password must be more than 10 chars.' />
           )}
           <Button
             canClick={formState.isValid}
