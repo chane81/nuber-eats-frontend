@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react';
-import { debug } from 'node:console';
+import { render } from '../../test-utils';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Restaurant } from '../restaurant';
 

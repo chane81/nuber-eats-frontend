@@ -1,17 +1,9 @@
-import { render, waitFor } from '@testing-library/react';
-import { HelmetProvider } from 'react-helmet-async';
 import { NotFound } from '../404';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { render, waitFor } from '../../test-utils';
 
 describe('<NotFound />', () => {
   it('renders ok', async () => {
-    render(
-      <HelmetProvider>
-        <Router>
-          <NotFound />
-        </Router>
-      </HelmetProvider>,
-    );
+    render(<NotFound />);
 
     /**
      * document.title 를 expect 를 바로 해주면 fail이 일어난다.
