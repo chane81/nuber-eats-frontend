@@ -306,3 +306,42 @@
   - 두번째 방법, mock-apollo-client 를 쓰는 방법
     - MockProvider 를 쓸 경우 쿼리가 몇번 호출하였는지, 어떤 argument 로 호출하였는지도 테스트 하고 싶은데 그렇게 할 수가 없다. mock-apollo-client 를 사용하면 좀 더 디테일 하게 테스트가 가능하다.
     - 참고 링크: <https://github.com/mike-gibson/mock-apollo-client>
+
+- 모듈 mock
+  - 아래 ReferenceError 시 변수에 `'mock' prefix` 를 붙여주어야 에러가 나지 않는다.
+    - 에러 메시지
+      - 'jest.mock()' is not allowed to reference any out-of-scope 
+      variables.
+      - Invalid variable access: pushMockImplementation
+      - Variable names prefixed with 'mock' (case insensitive) are permitted
+  - react-router-dom 예시 코드
+    - 모든 모듈에 대에서 mock을 하지 않기 위해 jest.requireActual 를 사용하여 필요한 부분만 mock 를 하게 함
+
+    ```javascript
+    // ReferenceError 대응
+    // prefix 로 mock를 붙여주어야 에러가 나지 않는다.
+    const mockPush = jest.fn();
+
+    jest.mock('react-router-dom', () => {
+      const realModule = jest.requireActual('react-router-dom');
+
+      return {
+        ...realModule,
+        useHistory: () => ({
+          push: mockPush,
+        }),
+      };
+    });
+
+    describe('<CreateAccount />', () => {
+      it('module library mock test ', async () => {
+        // history push 체크
+        expect(mockPush).toHaveBeenCalledWith('/');
+      });
+
+      // 모든 테스트가 끝난뒤 모든 mock 를 clear 처리
+      afterAll(() => {
+        jest.clearAllMocks();
+      });
+    });
+    ```
