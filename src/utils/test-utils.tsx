@@ -1,5 +1,4 @@
-import React, { FC, ReactElement } from 'react';
-import { render, RenderOptions } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router } from 'react-router-dom';
 
