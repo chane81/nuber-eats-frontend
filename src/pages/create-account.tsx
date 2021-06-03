@@ -11,7 +11,7 @@ import nuberLogo from '../images/logo.svg';
 import { Button } from '../components/button';
 import { UserRole } from '../__generated__/globalTypes';
 
-const CREATE_ACCOUNT_MUTATION = gql`
+export const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccountMutation($createAccountInput: CreateAccountInput!) {
     createAccount(input: $createAccountInput) {
       ok
@@ -40,6 +40,8 @@ export const CreateAccount = () => {
     const { error, ok } = data.createAccount;
 
     if (ok) {
+      alert('Account Created! Log in now!');
+
       // redirect login page
       history.push('/');
     }
