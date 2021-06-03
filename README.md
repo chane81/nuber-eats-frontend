@@ -310,8 +310,7 @@
 - 모듈 mock
   - 아래 ReferenceError 시 변수에 `'mock' prefix` 를 붙여주어야 에러가 나지 않는다.
     - 에러 메시지
-      - 'jest.mock()' is not allowed to reference any out-of-scope 
-      variables.
+      - 'jest.mock()' is not allowed to reference any out-of-scope variables.
       - Invalid variable access: pushMockImplementation
       - Variable names prefixed with 'mock' (case insensitive) are permitted
   - react-router-dom 예시 코드
