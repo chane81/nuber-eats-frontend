@@ -5,6 +5,19 @@ import { render, waitFor, RenderResult } from '../../utils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { UserRole } from '../../__generated__/globalTypes';
 
+const mockPush = jest.fn();
+
+jest.mock('react-router-dom', () => {
+  const realModule = jest.requireActual('react-router-dom');
+
+  return {
+    ...realModule,
+    useHistory: () => ({
+      push: mockPush,
+    }),
+  };
+});
+
 describe('<CreateAccount />', () => {
   let mockedClient: MockApolloClient;
   let renderResult: RenderResult;
@@ -101,5 +114,13 @@ describe('<CreateAccount />', () => {
     // mutation error 체크
     const mutationError = getByRole('alert');
     expect(mutationError).toHaveTextContent('mutation-error');
+
+    // history push 체크
+    expect(mockPush).toHaveBeenCalledWith('/');
+  });
+
+  // 모든 테스트가 끝난뒤 모든 mock 를 clear 처리
+  afterAll(() => {
+    jest.clearAllMocks();
   });
 });
