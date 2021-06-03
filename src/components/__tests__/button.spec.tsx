@@ -1,4 +1,4 @@
-import { render } from '../../test-utils';
+import { render } from '../../utils/test-utils';
 import { Button } from '../button';
 
 describe('<Button />', () => {

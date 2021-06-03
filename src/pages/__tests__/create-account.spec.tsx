@@ -1,7 +1,7 @@
 import { CreateAccount } from '../create-account';
 import { createMockClient, MockApolloClient } from 'mock-apollo-client';
 import { ApolloProvider } from '@apollo/client';
-import { render, waitFor, RenderResult } from '../../test-utils';
+import { render, waitFor, RenderResult } from '../../utils/test-utils';
 
 describe('<CreateAccount />', () => {
   let mockedClient: MockApolloClient;

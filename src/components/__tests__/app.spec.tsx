@@ -1,4 +1,4 @@
-import { render, waitFor } from '../../test-utils';
+import { render, waitFor } from '../../utils/test-utils';
 import { isLoggedInVar } from '../../apollo';
 import { App } from '../app';
 

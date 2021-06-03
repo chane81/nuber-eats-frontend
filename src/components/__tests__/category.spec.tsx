@@ -1,4 +1,4 @@
-import { render } from '../../test-utils';
+import { render } from '../../utils/test-utils';
 import { Category } from '../category';
 
 describe('<Category />', () => {

@@ -1,4 +1,4 @@
-import { render, waitFor } from '../../test-utils';
+import { render, waitFor } from '../../utils/test-utils';
 import { MockedProvider } from '@apollo/client/testing';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Header } from '../header';

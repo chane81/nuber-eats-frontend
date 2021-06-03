@@ -3,7 +3,7 @@ import { createMockClient, MockApolloClient } from 'mock-apollo-client';
 import { Login, LOGIN_MUTATION } from '../login';
 import userEvent from '@testing-library/user-event';
 import { loginMutation } from '../../__generated__/loginMutation';
-import { render, waitFor, RenderResult } from '../../test-utils';
+import { render, waitFor, RenderResult } from '../../utils/test-utils';
 
 describe('<Login />', () => {
   let renderResult: RenderResult;

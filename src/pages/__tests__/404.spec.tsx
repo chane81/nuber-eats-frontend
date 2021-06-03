@@ -1,5 +1,5 @@
 import { NotFound } from '../404';
-import { render, waitFor } from '../../test-utils';
+import { render, waitFor } from '../../utils/test-utils';
 
 describe('<NotFound />', () => {
   it('renders ok', async () => {

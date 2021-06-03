@@ -1,4 +1,4 @@
-import { render } from '../../test-utils';
+import { render } from '../../utils/test-utils';
 import { FormError } from '../form-error';
 
 describe('<FormError />', () => {
