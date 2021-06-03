@@ -344,3 +344,20 @@
       });
     });
     ```
+
+- cypress
+  - 그냥 yarn add -D cypress 를 하여 설치하면 cypress open을 했을 시에 `Cypress fail to start`라고 나올 수 있다.
+  - `npx cypress install --force` 도 실행하여 cypress 환경을 만들고 실행 할 것
+  - cypress > tsconfig.json 설정
+
+    ```json
+    {
+      "compilerOptions": {
+        "allowJs": true,
+        "baseUrl": "../node_modules",
+        "types": ["cypress"],
+        "outDir": "#"
+      },
+      "include": ["./**/*.*"]
+    }
+    ```
