@@ -113,7 +113,11 @@ export const CreateAccount = () => {
           {errors.password?.message && (
             <FormError errorMessage={errors.password?.message} />
           )}
-          <select {...register('role', { required: true })} className='input'>
+          <select
+            role='listbox'
+            {...register('role', { required: true })}
+            className='input'
+          >
             {Object.keys(UserRole).map((role) => (
               <option key={role}>{role}</option>
             ))}
