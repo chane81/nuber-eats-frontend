@@ -45,6 +45,6 @@ describe('Login In', () => {
       .click();
 
     // local storage 에 토큰있는지 체크
-    user.window().its('localStorage.nuber-token').should('be.a', 'string');
+    user.assertLoggedIn();
   });
 });

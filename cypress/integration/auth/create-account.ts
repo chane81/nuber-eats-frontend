@@ -63,6 +63,8 @@ describe('Create Account', () => {
     user.findByPlaceholderText(/email/i).type('client3@naver.com');
     user.findByPlaceholderText(/password/i).type('12345');
     user.findByRole('button').click();
-    user.window().its('localStorage.nuber-token').should('be.a', 'string');
+
+    // local storage 에 토큰있는지 체크
+    user.assertLoggedIn();
   });
 });
