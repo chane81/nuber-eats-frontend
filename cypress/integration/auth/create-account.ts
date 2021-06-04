@@ -37,13 +37,17 @@ describe('Create Account', () => {
       if (operationName && operationName === 'createAccountMutation') {
         req.reply((res) => {
           res.send({
-            data: {
-              createAccount: {
-                ok: true,
-                error: null,
-                __typename: 'CreateAccountOutput',
-              },
-            },
+            // 아래와 같은 data 값을 fixture 를 이용하여 주입 재사용이 가능하다.
+            // data: {
+            //   createAccount: {
+            //     ok: true,
+            //     error: null,
+            //     __typename: 'CreateAccountOutput',
+            //   },
+            // },
+
+            // fixture 방식
+            fixture: 'auth/create-account.json',
           });
         });
       }
