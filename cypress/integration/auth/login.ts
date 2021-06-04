@@ -1,10 +1,12 @@
 describe('Login In', () => {
   const user = cy;
 
+  // login page title 체크
   it('should see login page', () => {
     user.visit('/').title().should('eq', 'Login | Nuber Eats');
   });
 
+  // 이메일 / 패스워드 유효 체크
   it('can see email / password validation errors', () => {
     user.visit('/');
 
@@ -28,6 +30,7 @@ describe('Login In', () => {
     user.findByRole('alert').should('have.text', 'Password is required');
   });
 
+  // 로그인 체크
   it('can fill out the form and login', () => {
     user.visit('/');
 
@@ -43,10 +46,5 @@ describe('Login In', () => {
 
     // local storage 에 토큰있는지 체크
     user.window().its('localStorage.nuber-token').should('be.a', 'string');
-  });
-
-  it('sign up', () => {
-    // 계정생성 페이지 visit
-    user.visit('/create-account');
   });
 });
