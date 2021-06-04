@@ -1,0 +1,9 @@
+{
+  "data": {
+    "createAccount": {
+      "ok": true,
+      "error": "",
+      "__typename": "CreateAccountOutput"
+    }
+  }
+}
