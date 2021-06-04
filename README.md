@@ -384,3 +384,48 @@
         cy.window().its('localStorage.nuber-token').should('be.a', 'string');
       });
     ```
+
+  - fixtures 사용
+    - api 호출시에 request 또는 response json 값을 인터셉트 할 경우 fixtures 에서 정의한 json 값을 재사용해서 주입시킬 수 있다.
+
+    - cypress > fixtures > auth > xxxx.json 파일 생성
+
+      ```json
+      {
+        "data": {
+          "createAccount": {
+            "ok": true,
+            "error": "",
+            "__typename": "CreateAccountOutput"
+          }
+        }
+      }
+      ```
+
+    - 아래와 같이 인터셉트 하는 곳에 fixture 를 주입
+
+    ```javascript
+    // graphql call 인터셉트
+    user.intercept('http://localhost:4000/graphql', (req) => {
+      const { operationName } = req.body;
+
+      if (operationName && operationName === 'createAccountMutation') {
+        req.reply((res) => {
+          res.send({
+            /** 
+            data: {
+              createAccount: {
+                ok: true,
+                error: null,
+                __typename: 'CreateAccountOutput',
+              },
+            },
+            */
+
+            // fixture 방식
+            fixture: 'auth/create-account.json',
+          });
+        });
+      }
+    });
+    ```
