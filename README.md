@@ -346,18 +346,41 @@
     ```
 
 - cypress
-  - 그냥 yarn add -D cypress 를 하여 설치하면 cypress open을 했을 시에 `Cypress fail to start`라고 나올 수 있다.
-  - `npx cypress install --force` 도 실행하여 cypress 환경을 만들고 실행 할 것
-  - cypress > tsconfig.json 설정
+  - 설치 및 세팅
+    - 그냥 yarn add -D cypress 를 하여 설치하면 cypress open을 했을 시에 `Cypress fail to start`라고 나올 수 있다.
+    - `npx cypress install --force` 도 실행하여 cypress 환경을 만들고 실행 할 것
+    - cypress > tsconfig.json 설정
 
-    ```json
-    {
-      "compilerOptions": {
-        "allowJs": true,
-        "baseUrl": "../node_modules",
-        "types": ["cypress"],
-        "outDir": "#"
-      },
-      "include": ["./**/*.*"]
-    }
+      ```json
+      {
+        "compilerOptions": {
+          "allowJs": true,
+          "baseUrl": "../node_modules",
+          "types": ["cypress"],
+          "outDir": "#"
+        },
+        "include": ["./**/*.*"]
+      }
+      ```
+
+  - 커스텀 command
+    - 아래 파일에 커스텀 커맨드 작성
+    - 인텔리센스 제공을 위해 global namespace 를 사용하여 타입 작성
+    - cypress/support/commands.ts
+
+    ```javascript
+      // type 제공
+      declare global {
+        namespace Cypress {
+          interface Chainable {
+            // 아래 커스텀 함수에 대한 타입 작서
+            assertLoggedIn(): Chainable<string>;
+          }
+        }
+      }
+
+      // 커스텀 함수 작성
+      Cypress.Commands.add('assertLoggedIn', () => {
+        cy.window().its('localStorage.nuber-token').should('be.a', 'string');
+      });
     ```
