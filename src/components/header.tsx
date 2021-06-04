@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
         <div className='w-full max-w-screen-xl mx-auto flex justify-between items-center'>
           <img src={nuberLogo} className='w-36' alt='logo' />
           <span className='text-xs'>
-            <Link to='/my-profile'>
+            <Link title='edit-profile' to='/edit-profile'>
               <FontAwesomeIcon icon={faUser} className='text-xl' />
             </Link>
           </span>
