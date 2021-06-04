@@ -27,6 +27,9 @@ describe('Create Account', () => {
 
   // 사용자 계정 생성 및 유효성 체크
   it('should be able to create account', () => {
+    const email = 'client3@naver.com';
+    const password = '12345';
+
     // graphql call 인터셉트
     user.intercept('http://localhost:4000/graphql', (req) => {
       const { operationName } = req.body;
@@ -49,22 +52,14 @@ describe('Create Account', () => {
     user.visit('/create-account');
 
     // 계정생성
-    user.findByPlaceholderText(/email/i).type('client3@naver.com');
-    user.findByPlaceholderText(/password/i).type('12345');
+    user.findByPlaceholderText(/email/i).type(email);
+    user.findByPlaceholderText(/password/i).type(password);
     user.findByRole('listbox').select(UserRole.Client);
     user.findByRole('button').click();
 
     user.wait(1000);
 
-    // 로그인페이지 진입 확인
-    user.title().should('eq', 'Login | Nuber Eats');
-
     // 계정생성 후 이동된 로그인페이지에서 로그인 되는지 체크
-    user.findByPlaceholderText(/email/i).type('client3@naver.com');
-    user.findByPlaceholderText(/password/i).type('12345');
-    user.findByRole('button').click();
-
-    // local storage 에 토큰있는지 체크
-    user.assertLoggedIn();
+    user.login(email, password);
   });
 });
