@@ -39,7 +39,7 @@ Cypress.Commands.add('assertLoggedIn', () => {
   cy.window().its('localStorage.nuber-token').should('be.a', 'string');
 });
 
-// 로그아웃 체크
+// 로그아웃 상태를 토큰으로 체크
 Cypress.Commands.add('assertLoggedOut', () => {
   cy.window().its('localStorage.nuber-token').should('be.undefined');
 });
