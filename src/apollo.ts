@@ -1,4 +1,10 @@
-import { ApolloClient, ApolloLink, createHttpLink, InMemoryCache, makeVar } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloLink,
+  createHttpLink,
+  InMemoryCache,
+  makeVar,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { LOCALSTORAGE_TOKEN } from './constant';
 
@@ -20,6 +26,11 @@ const authLink = setContext((_, { headers }) => {
 });
 
 export const client = new ApolloClient({
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-first',
+    },
+  },
   link: ApolloLink.from([authLink, httpLink]),
   cache: new InMemoryCache({
     typePolicies: {
