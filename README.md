@@ -86,6 +86,45 @@
 
 - node.js 버전 12이상에서 작동을 제대로 함
 
+- tailwind 설치후 @apply 유틸 사용을 위해 /src/styles/tailwind.css 에 아래와 같이 css 적용을 하는데 아래 그림과 같이 계속 빨간색으로 warning 가 뜬다.
+
+  <img src='./readmeImg/tailwind.css_warning.png' width='400px'>
+  
+  - 해결방법
+    - stylelint 관련 설치
+      - yarn add -D stylelint stylelint-config-standard
+    - root 디렉토리에 stylelint.config.js 파일 생성 후 아래 입력
+
+      ```js
+      module.exports = {
+        extends: ['stylelint-config-standard'],
+        rules: {
+          'at-rule-no-unknown': [
+            true,
+            {
+              ignoreAtRules: [
+                'tailwind',
+                'apply',
+                'variants',
+                'responsive',
+                'screen',
+              ],
+            },
+          ],
+          'declaration-block-trailing-semicolon': null,
+          'no-descending-specificity': null,
+        },
+      }
+      ```
+
+    - .vscode > settings.json 에 아래 설정 추가
+
+      ```json
+      "css.validate": false,
+      "less.validate": false,
+      "scss.validate": false,
+      ```
+
 ## PostCSS
 
 - <https://github.com/chane81/nuber-eats-frontend/blob/main/PostCSS.md>
