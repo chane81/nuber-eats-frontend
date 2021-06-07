@@ -88,7 +88,7 @@
 
 - tailwind 설치후 @apply 유틸 사용을 위해 /src/styles/tailwind.css 에 아래와 같이 css 적용을 하는데 아래 그림과 같이 계속 빨간색으로 warning 가 뜬다.
 
-  <img src='./readmeImg/tailwind.css_warning.png' width='400px'>
+  <img src='./readmeImg/tailwind.css_warning.png' width='400px' style='padding-left: 1.5rem;'>
   
   - 해결방법
     - stylelint 관련 설치
