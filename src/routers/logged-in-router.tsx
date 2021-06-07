@@ -12,6 +12,7 @@ import { Search } from '../pages/client/search';
 import { Category } from '../pages/client/category';
 import { Restaurant } from '../pages/client/restaurant';
 import { MyRestaurants } from '../pages/owner/my-restaurants';
+import { AddRestaurant } from '../pages/owner/add-restaurant';
 
 interface IRoute {
   path: string;
@@ -54,6 +55,11 @@ const restaurantRoutes: IRoute[] = [
   {
     path: '/',
     component: <MyRestaurants />,
+    exact: true,
+  },
+  {
+    path: '/add-restaurant',
+    component: <AddRestaurant />,
   },
 ];
 
@@ -81,19 +87,19 @@ export const LoggedInRouter = () => {
         <Switch>
           {data.me.role === UserRole.Client &&
             clientRoutes.map((route) => (
-              <Route path={route.path} exact={route.exact}>
+              <Route key={route.path} path={route.path} exact={route.exact}>
                 {route.component}
               </Route>
             ))}
           {data.me.role === UserRole.Owner &&
             restaurantRoutes.map((route) => (
-              <Route path={route.path} exact={route.exact}>
+              <Route key={route.path} path={route.path} exact={route.exact}>
                 {route.component}
               </Route>
             ))}
 
           {commonRoutes.map((route) => (
-            <Route path={route.path} exact={route.exact}>
+            <Route key={route.path} path={route.path} exact={route.exact}>
               {route.component}
             </Route>
           ))}
