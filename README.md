@@ -9,6 +9,10 @@
 - Jest
 - @testing-library/react
 
+## 개발 이슈
+
+- [개발이슈 링크](./readme-ref/md/DevIssue.md)
+
 ## 셋업 및 프로젝트 create
 
 - create
@@ -88,7 +92,7 @@
 
 - tailwind 설치후 @apply 유틸 사용을 위해 /src/styles/tailwind.css 에 아래와 같이 css 적용을 하는데 아래 그림과 같이 계속 빨간색으로 warning 가 뜬다.
 
-  <img src='./readmeImg/tailwind.css_warning.png' width='400px' style='padding-left: 1.5rem;'>
+  <img src='./readme-ref/imgs/tailwind.css_warning.png' width='400px' style='padding-left: 1.5rem;'>
   
   - 해결방법
     - stylelint 관련 설치
@@ -127,7 +131,7 @@
 
 ## PostCSS
 
-- <https://github.com/chane81/nuber-eats-frontend/blob/main/PostCSS.md>
+- [PostCSS 설명 링크](./readme-ref/md/PostCSS.md)
 
 ## Graphql
 
