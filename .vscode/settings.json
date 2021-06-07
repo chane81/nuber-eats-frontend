@@ -54,6 +54,11 @@
     "node_modules": true
   },
 
+  // style lint 설정 (stylelint 라이브러리를 사용하므로 아래 체크는 false)
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+
   // files 설정
   "files.autoSave": "onFocusChange",
   "files.defaultLanguage": "ko",
