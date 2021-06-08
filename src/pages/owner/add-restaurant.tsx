@@ -1,13 +1,15 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useApolloClient, useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/button';
 import { FormError } from '../../components/form-error';
 import {
   createRestaurant,
   createRestaurantVariables,
 } from '../../__generated__/createRestaurant';
+import { myRestaurants } from '../../__generated__/myRestaurants';
 import { MY_RESTAURANTS_QUERY } from './my-restaurants';
 
 const CREATE_RESTAURANT_MUTATION = gql`
@@ -28,6 +30,8 @@ interface IFormProps {
 }
 
 export const AddRestaurant = () => {
+  const client = useApolloClient();
+  const history = useHistory();
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
 
@@ -38,6 +42,43 @@ export const AddRestaurant = () => {
 
     if (ok) {
       setUploading(false);
+
+      const { name, categoryName, address } = getValues();
+
+      // read cache
+      const queryResult = client.readQuery<myRestaurants>({
+        query: MY_RESTAURANTS_QUERY,
+      });
+
+      // write cache
+      client.writeQuery<myRestaurants>({
+        query: MY_RESTAURANTS_QUERY,
+        data: {
+          myRestaurants: {
+            ...queryResult?.myRestaurants,
+            restaurants: [
+              {
+                name,
+                id: restaurantId || 0,
+                address,
+                category: {
+                  name: categoryName,
+                  __typename: 'Category',
+                },
+                coverImg: imageUrl,
+                isPromoted: false,
+                __typename: 'Restaurant',
+              },
+            ],
+            ok: true,
+            error: '',
+            __typename: 'MyRestaurantsOutput',
+          },
+        },
+      });
+
+      // home redirect
+      history.push('/');
     }
   };
 
