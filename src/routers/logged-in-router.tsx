@@ -66,6 +66,7 @@ const restaurantRoutes: IRoute[] = [
   {
     path: '/restaurant/:id',
     component: <MyRestaurant />,
+    exact: true,
   },
   {
     path: '/restaurant/:id/add-dish',
