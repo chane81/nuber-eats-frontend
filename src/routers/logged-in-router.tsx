@@ -13,6 +13,8 @@ import { Category } from '../pages/client/category';
 import { Restaurant } from '../pages/client/restaurant';
 import { MyRestaurants } from '../pages/owner/my-restaurants';
 import { AddRestaurant } from '../pages/owner/add-restaurant';
+import { MyRestaurant } from '../pages/owner/my-restaurant';
+import { AddDish } from '../pages/owner/add-dish';
 
 interface IRoute {
   path: string;
@@ -60,6 +62,14 @@ const restaurantRoutes: IRoute[] = [
   {
     path: '/add-restaurant',
     component: <AddRestaurant />,
+  },
+  {
+    path: '/restaurant/:id',
+    component: <MyRestaurant />,
+  },
+  {
+    path: '/restaurant/:id/add-dish',
+    component: <AddDish />,
   },
 ];
 
