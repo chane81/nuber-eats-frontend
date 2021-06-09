@@ -1,9 +1,10 @@
 import { gql, useMutation } from '@apollo/client';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Button } from '../../components/button';
 import { createDish, createDishVariables } from '../../__generated__/createDish';
+import { MY_RESTAURANT_QUERY } from './my-restaurant';
 
 const CREATE_DISH_MUTATION = gql`
   mutation createDish($input: CreateDishInput!) {
@@ -15,29 +16,60 @@ const CREATE_DISH_MUTATION = gql`
 `;
 
 interface IParams {
-  restaurantId: string;
+  id: string;
 }
 
 interface IFormProps {
   name: string;
-  price: number;
+  price: string;
   description: string;
 }
 
 export const AddDish = () => {
-  const { restaurantId } = useParams<IParams>();
-  const [createDishMutation, { loading }] =
-    useMutation<createDish, createDishVariables>(CREATE_DISH_MUTATION);
+  const { id: restaurantId } = useParams<IParams>();
+  const history = useHistory();
+  const [createDishMutation, { loading }] = useMutation<
+    createDish,
+    createDishVariables
+  >(CREATE_DISH_MUTATION, {
+    refetchQueries: [
+      {
+        query: MY_RESTAURANT_QUERY,
+        variables: {
+          input: {
+            id: +restaurantId,
+          },
+        },
+      },
+    ],
+  });
 
-  const { register, getValues, formState, handleSubmit } = useForm<IFormProps>();
+  const { register, getValues, formState, handleSubmit } = useForm<IFormProps>({
+    mode: 'onChange',
+  });
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    const { name, price, description } = getValues();
+    createDishMutation({
+      variables: {
+        input: {
+          name,
+          price: +price,
+          description,
+          restaurantId: +restaurantId,
+        },
+      },
+    });
+
+    history.goBack();
+  };
 
   return (
     <div className='container flex flex-col items-center mt-52'>
       <Helmet>
         <title>Add Dish | Nuber Eats</title>
       </Helmet>
+      <h4 className='font-semibold text-exl mb-3'>Add Dish</h4>
       <form
         className='grid max-w-screen-sm gap-3 mt-5 w-full mb-5'
         onSubmit={handleSubmit(onSubmit)}
@@ -50,6 +82,7 @@ export const AddDish = () => {
         ></input>
         <input
           className='input'
+          min={0}
           {...register('price', { required: 'Price is required.' })}
           type='number'
           placeholder='Price'
