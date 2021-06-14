@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router';
 import { Button } from '../../components/button';
 import { createDish, createDishVariables } from '../../__generated__/createDish';
@@ -22,16 +22,27 @@ interface IParams {
 
 interface IFormProps {
   name: string;
-  price: string;
+  price: number;
   description: string;
-  [key: string]: string;
+  file: FileList;
+
+  // react-hook-form 의 field array 방식
+  // field array
+  options: {
+    name: string;
+    extra: number;
+  }[];
+
+  // 기존방식
+  //[key: string]: string | FileList | undefined;
 }
 
 export const AddDish = () => {
+  const [uploading, setUploading] = useState(false);
   const { id: restaurantId } = useParams<IParams>();
   const history = useHistory();
-  const [optionsNumber, setOptionsNumber] = useState<number[]>([]);
 
+  // mutation
   const [createDishMutation, { loading }] = useMutation<
     createDish,
     createDishVariables
@@ -48,43 +59,65 @@ export const AddDish = () => {
     ],
   });
 
-  const { register, getValues, formState, handleSubmit, setValue } =
+  // react-hook-form base
+  const { register, getValues, control, formState, handleSubmit, setValue } =
     useForm<IFormProps>({
       mode: 'onChange',
     });
 
-  const onSubmit = () => {
-    const { name, price, description, ...rest } = getValues();
-    const optionObjects = optionsNumber.map((id) => ({
-      name: rest[`${id}-optionName`],
-      extra: +rest[`${id}-optionExtra`],
-    }));
+  // react-hook-form field array
+  const { fields, append, remove, insert, prepend } = useFieldArray({
+    name: 'options',
+    control,
+  });
 
-    console.log('opt', optionObjects);
+  // submit
+  const onSubmit = async (data: IFormProps) => {
+    setUploading(true);
 
-    createDishMutation({
+    const { name, price, description, file, options } = data;
+    const actualFile = file[0];
+    const formBody = new FormData();
+    formBody.append('file', actualFile);
+
+    // 이미지 upload
+    const { url: photo } = await (
+      await fetch('http://localhost:4000/uploads/', {
+        method: 'POST',
+        body: formBody,
+      })
+    ).json();
+
+    // mutation call
+    await createDishMutation({
       variables: {
         input: {
           name,
-          price: +price,
+          price,
           description,
           restaurantId: +restaurantId,
-          options: optionObjects,
+          photo,
+          options,
         },
       },
     });
 
+    setUploading(false);
+
     history.goBack();
   };
 
-  const onDeleteClick = (idToDelete: number) => {
-    setOptionsNumber((cur) => cur.filter((id) => id !== idToDelete));
-    setValue(`${idToDelete}-optionName`, '');
-    setValue(`${idToDelete}-optionExtra`, '');
+  // 옵션 삭제
+  const onDeleteOptionClick = (deleteId: number) => {
+    remove(deleteId);
   };
 
+  // 옵션 추가
   const onAddOptionClick = () => {
-    setOptionsNumber((cur) => [Date.now(), ...cur]);
+    prepend({
+      name: '',
+      extra: 0,
+    });
   };
 
   return (
@@ -106,7 +139,10 @@ export const AddDish = () => {
         <input
           className='input'
           min={0}
-          {...register('price', { required: 'Price is required.' })}
+          {...register('price', {
+            required: 'Price is required.',
+            valueAsNumber: true,
+          })}
           type='number'
           placeholder='Price'
         ></input>
@@ -116,6 +152,13 @@ export const AddDish = () => {
           type='text'
           placeholder='Description'
         ></input>
+        <input
+          type='file'
+          accept='image/*'
+          {...register('file', {
+            required: true,
+          })}
+        />
         <div className='my-10'>
           <h4 className='font-medium mb-3'>Dish Options</h4>
           <span
@@ -124,25 +167,27 @@ export const AddDish = () => {
           >
             Add Dish Option
           </span>
-          {optionsNumber.length !== 0 &&
-            optionsNumber.map((id) => (
-              <div key={id} className='mt-5'>
+          {fields.length > 0 &&
+            fields.map((field, idx) => (
+              <div key={field.id} className='mt-5'>
                 <input
                   type='text'
-                  {...register(`${id}-optionName`)}
+                  {...register(`options.${idx}.name` as const)}
                   className='py-2 px-4 focus:outline-none mr-3 focus:border-gray-600 border-2'
                   placeholder='Option Name'
                 ></input>
                 <input
                   type='number'
                   min={0}
-                  {...register(`${id}-optionExtra`)}
+                  {...register(`options.${idx}.extra` as const, {
+                    valueAsNumber: true,
+                  })}
                   className='py-2 px-4 focus:outline-none mr-3 focus:border-gray-600 border-2'
                   placeholder='Option Extra'
                 ></input>
                 <span
                   className='cursor-pointer text-white bg-red-500 py-3 px-4'
-                  onClick={() => onDeleteClick(id)}
+                  onClick={() => onDeleteOptionClick(idx)}
                 >
                   Delete Option
                 </span>
