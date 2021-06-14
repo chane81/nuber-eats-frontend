@@ -54,7 +54,14 @@ export const AddDish = () => {
     });
 
   const onSubmit = () => {
-    const { name, price, description } = getValues();
+    const { name, price, description, ...rest } = getValues();
+    const optionObjects = optionsNumber.map((id) => ({
+      name: rest[`${id}-optionName`],
+      extra: +rest[`${id}-optionExtra`],
+    }));
+
+    console.log('opt', optionObjects);
+
     createDishMutation({
       variables: {
         input: {
@@ -62,6 +69,7 @@ export const AddDish = () => {
           price: +price,
           description,
           restaurantId: +restaurantId,
+          options: optionObjects,
         },
       },
     });
