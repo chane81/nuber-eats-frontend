@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryPie } from 'victory';
 import { Dish } from '../../components/dish';
 import { DISH_FRAGMENT, RESTAURANT_FRAGMENT } from '../../fragments';
 import {
@@ -42,7 +43,15 @@ export const MyRestaurant = () => {
     },
   );
 
-  console.log('params', data);
+  const chartData = [
+    { x: 1, y: 3000 },
+    { x: 2, y: 1500 },
+    { x: 3, y: 4250 },
+    { x: 4, y: 1250 },
+    { x: 5, y: 2300 },
+    { x: 6, y: 7150 },
+    { x: 7, y: 6830 },
+  ];
 
   return (
     <div>
@@ -85,6 +94,15 @@ export const MyRestaurant = () => {
               ))}
             </div>
           )}
+        </div>
+        <div className='mt-20 mb-10'>
+          <h4 className='text-center text-2xl font-medium'>Sales</h4>
+          <div className='max-w-lg w-full mx-auto'>
+            <VictoryPie
+              data={chartData}
+              colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
+            />
+          </div>
         </div>
       </div>
     </div>
