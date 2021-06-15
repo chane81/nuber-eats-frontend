@@ -2,7 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { useHistory, useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import { Button } from '../../components/button';
 import { createDish, createDishVariables } from '../../__generated__/createDish';
 import { MY_RESTAURANT_QUERY } from './my-restaurant';
@@ -34,11 +34,11 @@ interface IFormProps {
   }[];
 
   // 기존방식
-  //[key: string]: string | FileList | undefined;
+  // [key: string]: string | FileList | undefined;
 }
 
 export const AddDish = () => {
-  const [uploading, setUploading] = useState(false);
+  const [, setUploading] = useState(false);
   const { id: restaurantId } = useParams<IParams>();
   const history = useHistory();
 
@@ -60,13 +60,12 @@ export const AddDish = () => {
   });
 
   // react-hook-form base
-  const { register, getValues, control, formState, handleSubmit, setValue } =
-    useForm<IFormProps>({
-      mode: 'onChange',
-    });
+  const { register, control, formState, handleSubmit } = useForm<IFormProps>({
+    mode: 'onChange',
+  });
 
   // react-hook-form field array
-  const { fields, append, remove, insert, prepend } = useFieldArray({
+  const { fields, remove, prepend } = useFieldArray({
     name: 'options',
     control,
   });
@@ -135,7 +134,7 @@ export const AddDish = () => {
           {...register('name', { required: 'Name is required.' })}
           type='text'
           placeholder='Name'
-        ></input>
+        />
         <input
           className='input'
           min={0}
@@ -145,13 +144,13 @@ export const AddDish = () => {
           })}
           type='number'
           placeholder='Price'
-        ></input>
+        />
         <input
           className='input'
           {...register('description', { required: 'Description is required.' })}
           type='text'
           placeholder='Description'
-        ></input>
+        />
         <input
           type='file'
           accept='image/*'
@@ -175,7 +174,7 @@ export const AddDish = () => {
                   {...register(`options.${idx}.name` as const)}
                   className='py-2 px-4 focus:outline-none mr-3 focus:border-gray-600 border-2'
                   placeholder='Option Name'
-                ></input>
+                />
                 <input
                   type='number'
                   min={0}
@@ -184,7 +183,7 @@ export const AddDish = () => {
                   })}
                   className='py-2 px-4 focus:outline-none mr-3 focus:border-gray-600 border-2'
                   placeholder='Option Extra'
-                ></input>
+                />
                 <span
                   className='cursor-pointer text-white bg-red-500 py-3 px-4'
                   onClick={() => onDeleteOptionClick(idx)}
@@ -198,7 +197,7 @@ export const AddDish = () => {
           loading={loading}
           canClick={formState.isValid}
           actionText='Create Dish'
-        ></Button>
+        />
       </form>
     </div>
   );
