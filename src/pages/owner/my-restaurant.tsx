@@ -103,11 +103,11 @@ export const MyRestaurant = () => {
         </div>
         <div className='mt-20 mb-10'>
           <h4 className='text-center text-2xl font-medium'>Sales</h4>
-          <div className='ml-2 mx-auto'>
+          <div className='mx-auto bg-gray-100'>
             <VictoryChart
-              height={500}
+              height={300}
               width={window.innerWidth}
-              domainPadding={50}
+              domainPadding={30}
               theme={VictoryTheme.material}
               containerComponent={<VictoryVoronoiContainer />}
             >
