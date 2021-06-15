@@ -1,7 +1,7 @@
 module.exports = {
   client: {
     // tsx | ts 인 확장자인 파일에서 query 를 검색
-    includes: ['./src/**/*.{ts,tsx}'],
+    includes: ['./src/**/*.{ts,tsx}', './src/fragments.ts'],
     excludes: [
       './**/*.spec.ts',
       './node_modules',
