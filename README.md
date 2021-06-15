@@ -8,6 +8,7 @@
 - Tailwindcss
 - Jest
 - @testing-library/react
+- victory chart
 
 ## 개발 이슈
 
@@ -55,6 +56,9 @@
     - yarn add @fortawesome/fontawesome-svg-core
     - yarn add @fortawesome/free-solid-svg-icons
     - yarn add @fortawesome/react-fontawesome
+
+  - victory
+    - yarn add victory
 
 - vs-code extends
 
@@ -472,3 +476,8 @@
       }
     });
     ```
+
+## Victory Chart
+
+- Doc Url
+  <https://formidable.com/open-source/victory>
