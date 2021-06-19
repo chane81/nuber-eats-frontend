@@ -82,7 +82,7 @@ export const MyRestaurant = () => {
         >
           Add Dish &rarr;
         </Link>
-        <Link to='' className='text-white bg-lime-700 py-3 px-10'>
+        <Link to='##' className='text-white bg-lime-700 py-3 px-10'>
           Buy Promotion &rarr;
         </Link>
         <div className='mt-10'>
