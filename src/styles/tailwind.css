@@ -2,6 +2,11 @@
 @tailwind base;
 @tailwind components;
 
+body {
+  font-family: Roboto, 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-weight: 300;
+}
+
 .input {
   @apply focus:outline-none focus:border-gray-500 p-3 border-2 text-lg font-light border-gray-200 transition-colors;
 }
