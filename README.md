@@ -9,6 +9,7 @@
 - Jest
 - @testing-library/react
 - victory chart
+- paddle solution for payments
 
 ## 개발 이슈
 
@@ -481,3 +482,8 @@
 
 - Doc Url
   <https://formidable.com/open-source/victory>
+
+## Paddle for Payments
+
+- Url
+  <https://paddle.com>
