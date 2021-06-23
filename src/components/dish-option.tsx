@@ -28,8 +28,13 @@ export const DishOption: React.FC<IProps> = ({
   return (
     <span
       onClick={handleClick}
-      className={`flex items-center border ${isSelected ? 'border-gray-800' : ''}`}
+      className={`flex cursor-pointer select-none border-transparent border-b-2 items-center ${
+        isSelected
+          ? 'border-lime-700 border-t-0 border-l-0 border-r-0 border-b-2'
+          : ''
+      }`}
     >
+      <i className={`fas fa-check-circle mr-2 ${isSelected && 'text-lime-600'}`} />
       <h6 className='mr-2'>{name}</h6>
       {extra && <h6 className='text-sm opacity-75'>(${extra})</h6>}
     </span>
