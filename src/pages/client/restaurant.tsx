@@ -63,12 +63,10 @@ export const Restaurant = () => {
       history.push(`/orders/${orderId}`);
     }
   };
-  const [createOrderMutation] = useMutation<createOrder, createOrderVariables>(
-    CREATE_ORDER_MUTATION,
-    {
+  const [createOrderMutation, { loading: createOrderMutationLoading }] =
+    useMutation<createOrder, createOrderVariables>(CREATE_ORDER_MUTATION, {
       onCompleted,
-    },
-  );
+    });
 
   const [orderStarted, setOrderStarted] = useState(false);
   const [orderItems, setOrderItems] = useState<CreateOrderItemInput[]>([]);
@@ -149,6 +147,10 @@ export const Restaurant = () => {
   };
 
   const handleConfirmOrder = () => {
+    if (createOrderMutationLoading) {
+      return;
+    }
+
     if (orderItems.length === 0) {
       alert(`Can't place empty order`);
 
