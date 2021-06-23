@@ -209,9 +209,6 @@ export const Restaurant = () => {
             </button>
           </div>
         )}
-        {/* <button onClick={handleStartOrder} className='btn px-10'>
-          {orderStarted ? 'Ordering' : 'Start Order'}
-        </button> */}
         <div className='w-full grid mt-16 px-3 md:grid-cols-3 gap-x-5 gap-y-10'>
           {data?.restaurant.restaurant?.menu.map((dish) => (
             <Dish
