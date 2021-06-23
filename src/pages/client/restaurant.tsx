@@ -1,5 +1,5 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { useHistory, useParams } from 'react-router-dom';
 import { Dish } from '../../components/dish';
 import { DishOption } from '../../components/dish-option';
@@ -45,31 +45,30 @@ interface IRestaurantParams {
 
 export const Restaurant = () => {
   const params = useParams<IRestaurantParams>();
-  const { data, loading } = useQuery<restaurant, restaurantVariables>(
-    RESTAURANT_QUERY,
-    {
-      variables: {
-        input: {
-          restaurantId: +params.id,
-        },
+  const { data } = useQuery<restaurant, restaurantVariables>(RESTAURANT_QUERY, {
+    variables: {
+      input: {
+        restaurantId: +params.id,
       },
     },
-  );
+  });
 
   const history = useHistory();
   const onCompleted = (data: createOrder) => {
     if (data.createOrder.ok) {
-      // alert(`order created${data.createOrder.orderId?.toString()}`);
       const {
         createOrder: { orderId },
       } = data;
+
       history.push(`/orders/${orderId}`);
     }
   };
-  const [createOrderMutation, { loading: createOrderMutationLoading }] =
-    useMutation<createOrder, createOrderVariables>(CREATE_ORDER_MUTATION, {
+  const [createOrderMutation] = useMutation<createOrder, createOrderVariables>(
+    CREATE_ORDER_MUTATION,
+    {
       onCompleted,
-    });
+    },
+  );
 
   const [orderStarted, setOrderStarted] = useState(false);
   const [orderItems, setOrderItems] = useState<CreateOrderItemInput[]>([]);
@@ -169,8 +168,6 @@ export const Restaurant = () => {
       });
     }
   };
-
-  console.log('dish', orderItems);
 
   return (
     <div>
