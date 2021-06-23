@@ -45,11 +45,11 @@ export const Dish: React.FC<IProps> = ({
       }`}
     >
       <div className='mb-5'>
-        <h3 className='text-lg font-medium flex items-center'>
+        <h3 className='text-lg font-medium flex justify-between items-center'>
           {name}{' '}
           {orderStarted && (
             <button
-              className={`ml-3 py-1 px-3 focus:outline-none text-sm text-white ${
+              className={`ml-3 py-1 px-3 w-20 focus:outline-none text-sm text-white ${
                 isSelected ? 'bg-red-500' : 'bg-lime-600'
               }`}
               onClick={handleClick}
