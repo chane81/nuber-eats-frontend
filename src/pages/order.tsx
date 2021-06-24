@@ -1,6 +1,25 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useSubscription } from '@apollo/client';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 import { getOrder, getOrderVariables } from '../__generated__/getOrder';
+import { OrderStatus, UserRole } from '../__generated__/globalTypes';
+import { useMe } from '../hooks/useMe';
+import { FULL_ORDER_FRAGMENT } from '../fragments';
+import {
+  orderUpdates,
+  orderUpdatesVariables,
+} from '../__generated__/orderUpdates';
+
+const ORDER_SUBSCRIPTION = gql`
+  subscription orderUpdates($input: OrderUpdatesInput!) {
+    orderUpdates(input: $input) {
+      ...FullOrderParts
+    }
+  }
+
+  ${FULL_ORDER_FRAGMENT}
+`;
 
 const GET_ORDER = gql`
   query getOrder($input: GetOrderInput!) {
@@ -8,21 +27,12 @@ const GET_ORDER = gql`
       ok
       error
       order {
-        id
-        status
-        total
-        driver {
-          email
-        }
-        customer {
-          email
-        }
-        restaurant {
-          name
-        }
+        ...FullOrderParts
       }
     }
   }
+
+  ${FULL_ORDER_FRAGMENT}
 `;
 
 interface IParams {
@@ -31,15 +41,163 @@ interface IParams {
 
 export const Order = () => {
   const params = useParams<IParams>();
-  const { data } = useQuery<getOrder, getOrderVariables>(GET_ORDER, {
-    variables: {
-      input: {
-        id: +params.id,
+  const { data: userData } = useMe();
+  const { data, subscribeToMore } = useQuery<getOrder, getOrderVariables>(
+    GET_ORDER,
+    {
+      variables: {
+        input: {
+          id: +params.id,
+        },
       },
     },
-  });
+  );
 
-  console.log('data', data);
+  // subscription type
+  type subType = { subscriptionData: { data: orderUpdates } };
 
-  return <h1>{params.id}</h1>;
+  useEffect(() => {
+    if (data?.getOrder.ok) {
+      subscribeToMore({
+        document: ORDER_SUBSCRIPTION,
+        variables: {
+          input: {
+            id: +params.id,
+          },
+        },
+        updateQuery: (prev, { subscriptionData: { data } }: subType) => {
+          if (!data) return prev;
+
+          // subscription data 가 getOrder query 결과와 구조가 같게 함
+          return {
+            getOrder: {
+              ...prev.getOrder,
+              order: {
+                ...data.orderUpdates,
+              },
+            },
+          };
+        },
+      });
+    }
+  }, [data]);
+
+  // useSubscription 을 사용하지 않고 query 이후 바로 subscription 결과 cache write 를 하기 위해
+  // 위에서 subscribeToMore 기능 로직 구현함
+
+  // const { data: subscriptionData } = useSubscription<
+  //   orderUpdates,
+  //   orderUpdatesVariables
+  // >(ORDER_SUBSCRIPTION, {
+  //   variables: {
+  //     input: {
+  //       id: +params.id,
+  //     },
+  //   },
+  // });
+
+  const onButtonClick = (newStatus: OrderStatus) => {
+    // editOrderMutation({
+    //   variables: {
+    //     input: {
+    //       id: +params.id,
+    //       status: newStatus,
+    //     },
+    //   },
+    // });
+  };
+
+  // console.log('sub data', subscriptionData);
+
+  return (
+    <div className='mt-32 container flex justify-center'>
+      <Helmet>
+        <title>Order #{params.id} | Nuber Eats</title>
+      </Helmet>
+      <div className='border border-gray-800 w-full max-w-screen-sm flex flex-col justify-center'>
+        <h4 className='bg-gray-800 w-full py-5 text-white text-center text-xl'>
+          Order #{params.id}
+        </h4>
+        <h5 className='p-5 pt-10 text-3xl text-center '>
+          ${data?.getOrder.order?.total}
+        </h5>
+        <div className='p-5 text-xl grid gap-6'>
+          <div className='border-t pt-5 border-gray-700'>
+            Prepared By:{' '}
+            <span className='font-medium'>
+              {data?.getOrder.order?.restaurant?.name}
+            </span>
+          </div>
+          <div className='border-t pt-5 border-gray-700 '>
+            Deliver To:{' '}
+            <span className='font-medium'>
+              {data?.getOrder.order?.customer?.email}
+            </span>
+          </div>
+          <div className='border-t border-b py-5 border-gray-700'>
+            Driver:{' '}
+            <span className='font-medium'>
+              {data?.getOrder.order?.driver?.email || 'Not yet.'}
+            </span>
+          </div>
+          {userData?.me.role === 'Client' && (
+            <span className=' text-center mt-5 mb-3  text-2xl text-lime-600'>
+              Status: {data?.getOrder.order?.status}
+            </span>
+          )}
+          {userData?.me.role === UserRole.Owner && (
+            <>
+              {data?.getOrder.order?.status === OrderStatus.Pending && (
+                <button
+                  onClick={() => onButtonClick(OrderStatus.Cooking)}
+                  className='btn'
+                >
+                  Accept Order
+                </button>
+              )}
+              {data?.getOrder.order?.status === OrderStatus.Cooking && (
+                <button
+                  onClick={() => onButtonClick(OrderStatus.Cooked)}
+                  className='btn'
+                >
+                  Order Cooked
+                </button>
+              )}
+              {data?.getOrder.order?.status !== OrderStatus.Cooking &&
+                data?.getOrder.order?.status !== OrderStatus.Pending && (
+                  <span className=' text-center mt-5 mb-3  text-2xl text-lime-600'>
+                    Status: {data?.getOrder.order?.status}
+                  </span>
+                )}
+            </>
+          )}
+          {userData?.me.role === UserRole.Delivery && (
+            <>
+              {data?.getOrder.order?.status === OrderStatus.Cooked && (
+                <button
+                  onClick={() => onButtonClick(OrderStatus.PickedUp)}
+                  className='btn'
+                >
+                  Picked Up
+                </button>
+              )}
+              {data?.getOrder.order?.status === OrderStatus.PickedUp && (
+                <button
+                  onClick={() => onButtonClick(OrderStatus.Delivered)}
+                  className='btn'
+                >
+                  Order Delivered
+                </button>
+              )}
+            </>
+          )}
+          {data?.getOrder.order?.status === OrderStatus.Delivered && (
+            <span className=' text-center mt-5 mb-3  text-2xl text-lime-600'>
+              Thank you for using Nuber Eats
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
