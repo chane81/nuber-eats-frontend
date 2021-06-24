@@ -51,6 +51,7 @@
 
   - apollo/graphql
     - yarn add @apollo/client graphql
+    - yarn add subscriptions-transport-ws
     - yarn global add apollo && yarn add apollo
 
   - font awesome(react-fontawesome)
@@ -258,6 +259,10 @@
   - 참고: <https://www.apollographql.com/docs/devtools/editor-plugins/>
   - 확장툴이 제대로 동작되기 위해서는 apollo.config.js 의 설정파일이 필수
   - 설정파일 작성이 끝났다면 vs-code 제일 하단에 "Apollo🚀" 을 클릭하여 제대로 스키마를 받아서 작동하는지 확인할 것
+
+- Subscription
+  - 참고 Url
+    <https://www.apollographql.com/docs/react/data/subscriptions/#setting-up-the-transport>
 
 ## React-hook-form
 
