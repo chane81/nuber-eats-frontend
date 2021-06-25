@@ -1,4 +1,4 @@
-import { gql, useQuery, useSubscription } from '@apollo/client';
+import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
@@ -10,6 +10,7 @@ import {
   orderUpdates,
   orderUpdatesVariables,
 } from '../__generated__/orderUpdates';
+import { editOrder, editOrderVariables } from '../__generated__/editOrder';
 
 const ORDER_SUBSCRIPTION = gql`
   subscription orderUpdates($input: OrderUpdatesInput!) {
@@ -35,6 +36,15 @@ const GET_ORDER = gql`
   ${FULL_ORDER_FRAGMENT}
 `;
 
+const EDIT_ORDER = gql`
+  mutation editOrder($input: EditOrderInput!) {
+    editOrder(input: $input) {
+      ok
+      error
+    }
+  }
+`;
+
 interface IParams {
   id: string;
 }
@@ -52,6 +62,9 @@ export const Order = () => {
       },
     },
   );
+
+  const [editOrderMutation] =
+    useMutation<editOrder, editOrderVariables>(EDIT_ORDER);
 
   // subscription type
   type subType = { subscriptionData: { data: orderUpdates } };
@@ -97,14 +110,14 @@ export const Order = () => {
   // });
 
   const onButtonClick = (newStatus: OrderStatus) => {
-    // editOrderMutation({
-    //   variables: {
-    //     input: {
-    //       id: +params.id,
-    //       status: newStatus,
-    //     },
-    //   },
-    // });
+    editOrderMutation({
+      variables: {
+        input: {
+          id: +params.id,
+          status: newStatus,
+        },
+      },
+    });
   };
 
   // console.log('sub data', subscriptionData);
