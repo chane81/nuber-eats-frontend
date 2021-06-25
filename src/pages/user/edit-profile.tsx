@@ -2,7 +2,7 @@ import { gql, useApolloClient, useMutation } from '@apollo/client';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { Button } from '../../components/button';
-import { REGEX_EMAIL } from '../../constant';
+import { REGEX_EMAIL } from '../../constants';
 import { useMe } from '../../hooks/useMe';
 import {
   editProfile,

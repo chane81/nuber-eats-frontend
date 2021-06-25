@@ -3,7 +3,7 @@ import { authTokenVar, isLoggedInVar } from '../apollo';
 import { UserRole } from '../__generated__/globalTypes';
 import { Restaurants } from '../pages/client/restaurants';
 import { NotFound } from '../pages/404';
-import { LOCALSTORAGE_TOKEN } from '../constant';
+import { LOCALSTORAGE_TOKEN } from '../constants';
 import { Header } from '../components/header';
 import { useMe } from '../hooks/useMe';
 import { ConfirmEmail } from '../pages/user/confirm-email';

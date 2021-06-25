@@ -10,7 +10,7 @@ import {
 import nuberLogo from '../images/logo.svg';
 import { Button } from '../components/button';
 import { authTokenVar, isLoggedInVar } from '../apollo';
-import { LOCALSTORAGE_TOKEN, REGEX_EMAIL } from '../constant';
+import { LOCALSTORAGE_TOKEN, REGEX_EMAIL } from '../constants';
 
 export const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {
