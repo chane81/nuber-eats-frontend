@@ -82,12 +82,6 @@ const restaurantRoutes: IRoute[] = [
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
 
-  const handleLogoutClick = () => {
-    localStorage.setItem(LOCALSTORAGE_TOKEN, '');
-    authTokenVar('');
-    isLoggedInVar(false);
-  };
-
   if (!data || loading || error) {
     return (
       <div className='h-screen flex justify-center items-center'>
@@ -124,7 +118,6 @@ export const LoggedInRouter = () => {
           </Route>
         </Switch>
       </Router>
-      <button onClick={handleLogoutClick}>Log Out</button>
     </div>
   );
 };
