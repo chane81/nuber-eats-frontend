@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
           <span>Prease verify your email.</span>
         </div>
       )}
-      <header className='py-4 fixed top-0 bg-white w-full z-10'>
+      <header className='py-4 mb-2 fixed top-0 bg-white w-full z-10'>
         <div className='container mx-auto flex justify-between items-center'>
           <Link title='home' to='/'>
             <img src={nuberLogo} className='w-36' alt='logo' />
