@@ -16,6 +16,7 @@ import { AddRestaurant } from '../pages/owner/add-restaurant';
 import { MyRestaurant } from '../pages/owner/my-restaurant';
 import { AddDish } from '../pages/owner/add-dish';
 import { Order } from '../pages/order';
+import { Dashboard } from '../pages/driver/dashboard';
 
 interface IRoute {
   path: string;
@@ -79,6 +80,14 @@ const restaurantRoutes: IRoute[] = [
   },
 ];
 
+const driverRoutes: IRoute[] = [
+  {
+    path: '/',
+    component: <Dashboard />,
+    exact: true,
+  },
+];
+
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
 
@@ -103,6 +112,12 @@ export const LoggedInRouter = () => {
             ))}
           {data.me.role === UserRole.Owner &&
             restaurantRoutes.map((route) => (
+              <Route key={route.path} path={route.path} exact={route.exact}>
+                {route.component}
+              </Route>
+            ))}
+          {data.me.role === UserRole.Delivery &&
+            driverRoutes.map((route) => (
               <Route key={route.path} path={route.path} exact={route.exact}>
                 {route.component}
               </Route>
