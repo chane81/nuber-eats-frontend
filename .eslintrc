@@ -24,7 +24,9 @@
     "SharedArrayBuffer": "readonly",
     "React": "readonly",
     "JSX": "readonly",
-    "naver": "readonly"
+    "naver": "readonly",
+    "GeolocationPosition": "readonly",
+    "GeolocationPositionError": "readonly"
   },
   "rules": {
     "prettier/prettier": [
