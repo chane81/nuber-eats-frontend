@@ -62,6 +62,10 @@
   - victory
     - yarn add victory
 
+  - google map
+    - yarn add google-map-react
+    - yarn add -D @types/google-map-react
+
 - vs-code extends
 
   - Tailwind CSS IntelliSense (Brad Cornes) 설치
@@ -492,3 +496,14 @@
 
 - Url
   <https://paddle.com>
+
+## Google map
+
+- 아래 링크로 접속 후 > API 및 서비스 > 라이브러리 > Maps JavaScript API 클릭 > 사용 클릭
+  - <https://console.cloud.google.com>
+
+- API 키 생성 및 발급
+  - Google Maps Platform > 사용자 인증 정보 > 페이지 상단에서 '사용자 인증 정보 만들기' 클릭 > 'API키' 클릭 하여 API 발급받기
+
+- 주의
+  - 만약 react 화면에서 "google 지도를 제대로 로드할 수 없습니다." 라고 나온다면, 구글 결제페이지에서 결제 카드가 등록되어 있지 않아서다. 결제 키드 등록 후 결제 계정 생성 및 연결을 하고 나면 위의 warning alert 가 뜨지 않는다.
