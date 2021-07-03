@@ -26,7 +26,8 @@
     "JSX": "readonly",
     "naver": "readonly",
     "GeolocationPosition": "readonly",
-    "GeolocationPositionError": "readonly"
+    "GeolocationPositionError": "readonly",
+    "google": "readonly"
   },
   "rules": {
     "prettier/prettier": [
