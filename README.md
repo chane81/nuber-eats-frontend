@@ -11,6 +11,12 @@
 - victory chart
 - paddle solution for payments
 
+## 화면
+
+![1](./readme-ref/imgs/nuber-eats-1.png)
+
+![2](./readme-ref/imgs/nuber-eats-2.png)
+
 ## 개발 이슈
 
 - [개발이슈 링크](./readme-ref/md/DevIssue.md)
@@ -65,6 +71,7 @@
   - google map
     - yarn add google-map-react
     - yarn add -D @types/google-map-react
+    - yarn add -D @types/google.maps
 
 - vs-code extends
 
@@ -499,11 +506,41 @@
 
 ## Google map
 
-- 아래 링크로 접속 후 > API 및 서비스 > 라이브러리 > Maps JavaScript API 클릭 > 사용 클릭
-  - <https://console.cloud.google.com>
+- google maps dev doc
+  - <https://developers.google.com/maps/documentation/directions/cloud-setup?hl=en>
+
+- 아래 링크로 접속 후 > API 및 서비스 > 라이브러리 로 이동
+  - <https://console.cloud.google.com> 
+  - Maps JavaScript API  사용 클릭
+  - Directions API 사용 클릭
+  - Geocoding API 사용 클릭
 
 - API 키 생성 및 발급
   - Google Maps Platform > 사용자 인증 정보 > 페이지 상단에서 '사용자 인증 정보 만들기' 클릭 > 'API키' 클릭 하여 API 발급받기
 
 - 주의
   - 만약 react 화면에서 "google 지도를 제대로 로드할 수 없습니다." 라고 나온다면, 구글 결제페이지에서 결제 카드가 등록되어 있지 않아서다. 결제 키드 등록 후 결제 계정 생성 및 연결을 하고 나면 위의 warning alert 가 뜨지 않는다.
+
+  - Directions API 의 travelMode가 대한민국에서는 TRANSIT 모드만 지원한다.
+
+- 타입스크립트
+  - <https://developers.google.com/maps/documentation/javascript/using-typescript?hl=ko>
+
+  - tsconfig.json 설정
+
+    ```json
+    {
+      "compilerOptions": {
+        "types": ["google.maps"]
+      }
+    }
+    ```
+
+  - .eslintrc 설정
+
+    ```json
+    "globals": {
+      ...
+      "google": "readonly"
+    },
+    ```
