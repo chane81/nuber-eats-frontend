@@ -175,7 +175,7 @@ export const AddRestaurant = () => {
           loading={loading}
           canClick={formState.isValid}
           actionText='Create Restaurant'
-        ></Button>
+        />
         {data?.createRestaurant.error && (
           <FormError errorMessage={data.createRestaurant.error} />
         )}
