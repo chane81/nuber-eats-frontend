@@ -9,6 +9,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
+import { envVars } from './config/env.config';
 import { LOCALSTORAGE_TOKEN } from './constants';
 
 const token = localStorage.getItem(LOCALSTORAGE_TOKEN);
@@ -27,7 +28,7 @@ export const authTokenVar = makeVar(token);
 
 // pub/sub 을 위한 세팅
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:4000/graphql',
+  uri: envVars.GRAPHQL_WS, // 'ws://localhost:4000/graphql',
   options: {
     reconnect: true,
     /**
@@ -41,7 +42,7 @@ const wsLink = new WebSocketLink({
 });
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: envVars.GRAPHQL_URL, // 'http://localhost:4000/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
