@@ -548,7 +548,7 @@
 ## Netlify Deploy
 
 - 주의
-  - 배포되고 나서 사이트 새로 고침시 에러 발생에 대한 대응으로 redirect 옵션 설정을 해주어야 한다.
+  - 배포되고 나서 사이트 새로 고침시 `Page Not Found`에러 발생에 대한 대응으로 redirect 옵션 설정을 해주어야 한다.
   - 참고 url
     <https://docs.netlify.com/routing/redirects/redirect-options/>
   - public/_redirects 파일 생성 후 아래 입력
