@@ -6,7 +6,7 @@
     "tailwind:prodbuild": "cross-env NODE_ENV=production yarn tailwind:build",
     "tailwind:build": "tailwind build ./src/styles/tailwind.css -o ./src/styles/styles.css",
     "start": "yarn generate & yarn tailwind:build & cross-env DISABLE_ESLINT_PLUGIN=true react-scripts start",
-    "build": "CI=false react-scripts build",
+    "build": "cross-env CI=false react-scripts build",
     "prebuild": "yarn tailwind:prodbuild",
     "test": "react-scripts test",
     "test:vbo": "react-scripts test --verbose",
